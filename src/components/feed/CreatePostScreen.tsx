@@ -178,7 +178,6 @@ const CreatePostScreen: React.FC<CreatePostScreenProps> = ({
         <h1 className="text-xl font-semibold">Create Post</h1>
         <div className="w-12"></div> {/* Spacer for alignment */}
       </div>
-
       {/* Post Creator */}
       <div className="flex-1 p-4">
         <div className="flex items-center mb-4">
@@ -305,7 +304,7 @@ const CreatePostScreen: React.FC<CreatePostScreenProps> = ({
         <Button
           onClick={handlePost}
           disabled={isLoading || (!content.trim() && !mediaFile)}
-          className="w-full h-14 text-lg bg-emerald-500 hover:bg-emerald-500 text-white rounded-full"
+          className="w-full h-14 text-lg hover:bg-emerald-500 text-white rounded-full bg-[#00b4d8]"
         >
           {isLoading ? (
             <>

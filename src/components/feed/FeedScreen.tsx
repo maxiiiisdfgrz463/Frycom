@@ -73,7 +73,7 @@ const FeedScreen: React.FC<FeedScreenProps> = ({
     <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 rounded-[40px]">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-emerald-500">FRYCOM</h1>
+        <h1 className="text-2xl font-bold text-[#00b4d8]">FRYCOM</h1>
 
         <div className="flex items-center space-x-4">
           <button className="h-10 w-10 flex items-center justify-center">
@@ -154,7 +154,7 @@ const FeedScreen: React.FC<FeedScreenProps> = ({
       {/* Create Post FAB */}
       <Button
         onClick={onCreatePost}
-        className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-emerald-500 hover:bg-emerald-500 shadow-lg"
+        className="fixed bottom-6 right-6 h-14 w-14 rounded-full hover:bg-emerald-500 shadow-lg bg-[#00b4d8]"
       >
         <Plus className="h-6 w-6" />
       </Button>
