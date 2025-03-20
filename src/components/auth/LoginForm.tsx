@@ -92,7 +92,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
         <Button
           type="submit"
-          className="w-full h-14 text-lg hover:bg-emerald-500 text-white rounded-full bg-[#00b4d8]"
+          className="w-full h-14 text-lg  text-white rounded-full bg-[#00b4d8]"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
