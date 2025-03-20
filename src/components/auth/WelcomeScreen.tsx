@@ -1,4 +1,7 @@
 import React from "react";
+import { Avatar } from "./../ui/avatar";
+import { AvatarImage } from "./../ui/avatar";
+import { AvatarFallback } from "./../ui/avatar";
 import { Button } from "@/components/ui/button";
 
 interface WelcomeScreenProps {
@@ -14,12 +17,10 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
     <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 p-6 rounded-[40px]">
       <div className="flex-1 flex flex-col items-center justify-center text-center">
         <div className="mb-8"></div>
-
         <h1 className="text-5xl mb-4 font-bold flex text-[#00b4d8]">FRYCOM</h1>
         <p className="text-gray-600 dark:text-gray-400 mb-16">
           Where every thought finds a home.
         </p>
-
         <div className="w-full max-w-md space-y-4">
           <Button
             onClick={onGetStarted}
