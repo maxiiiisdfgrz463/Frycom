@@ -23,7 +23,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
         <div className="w-full max-w-md space-y-4">
           <Button
             onClick={onGetStarted}
-            className="w-full h-14 text-lg hover:bg-emerald-500 text-white rounded-[40] rounded-[40] rounded-[10px] bg-[00b4d5] bg-[#00b4d8]"
+            className="w-full h-14 text-lg hover:bg-emerald-500 text-white rounded-[40] rounded-[40] rounded-[10px] bg-[00b4d5] bg-[#d90031]"
           >
             Getting Started
           </Button>
