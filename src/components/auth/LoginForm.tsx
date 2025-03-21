@@ -25,8 +25,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
     setIsSubmitting(true);
 
     try {
+      console.log("Attempting login with:", email);
       const result = await onLogin(email, password);
+
       if (result?.error) {
+        console.error("Login error:", result.error);
         toast({
           variant: "destructive",
           title: "Login failed",
@@ -34,8 +37,11 @@ const LoginForm: React.FC<LoginFormProps> = ({
             result.error.message ||
             "Invalid email or password. Please try again.",
         });
+      } else {
+        console.log("Login successful");
       }
     } catch (error) {
+      console.error("Unexpected error during login:", error);
       toast({
         variant: "destructive",
         title: "Login failed",

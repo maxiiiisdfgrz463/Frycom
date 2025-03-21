@@ -28,15 +28,18 @@ const SignupForm: React.FC<SignupFormProps> = ({
     setIsSubmitting(true);
 
     try {
-      const { error } = await signUp(email, password, name);
+      console.log("Submitting signup form with:", { name, email });
+      const result = await signUp(email, password, name);
 
-      if (error) {
+      if (result.error) {
+        console.error("Signup error:", result.error);
         toast({
           variant: "destructive",
           title: "Signup failed",
-          description: error.message,
+          description: result.error.message,
         });
       } else {
+        console.log("Signup successful:", result.data);
         toast({
           title: "Account created",
           description: "Your account has been created successfully!",
@@ -44,6 +47,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
         onSignup(name, email, password);
       }
     } catch (err) {
+      console.error("Unexpected error in signup form:", err);
       toast({
         variant: "destructive",
         title: "Signup failed",

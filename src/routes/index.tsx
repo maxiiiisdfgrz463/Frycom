@@ -31,9 +31,20 @@ const AppRoutes: React.FC = () => {
     return result;
   };
 
-  const handleSignup = (name: string, email: string, password: string) => {
-    // The actual signup is handled in the SignupForm component
-    // This is just for navigation after successful signup
+  const handleSignup = async (
+    name: string,
+    email: string,
+    password: string,
+  ) => {
+    // After signup, we need to log the user in
+    console.log("Handling post-signup login for:", email);
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      console.error("Error logging in after signup:", error);
+      return;
+    }
+
     navigate("/feed");
   };
 

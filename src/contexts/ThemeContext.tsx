@@ -25,6 +25,22 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     return savedTheme || (prefersDark ? "dark" : "light");
   });
 
+  // Listen for system theme changes
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      // Only auto-change if there's no saved preference
+      if (!localStorage.getItem("theme")) {
+        setTheme(e.matches ? "dark" : "light");
+      }
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
   useEffect(() => {
     // Update localStorage when theme changes
     localStorage.setItem("theme", theme);
@@ -38,7 +54,10 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    // When manually toggling, we clear the saved preference
+    // to allow system preference to take over again
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
   };
 
   return (

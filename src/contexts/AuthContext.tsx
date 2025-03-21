@@ -63,6 +63,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsLoading(true);
 
     try {
+      console.log("Attempting to sign up with:", { email, name });
+
       // Sign up the user
       const { data, error } = await supabase.auth.signUp({
         email,
@@ -79,22 +81,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         return { error, data: null };
       }
 
+      console.log("Signup response:", data);
+
       // If successful and we have a user, create a profile in the profiles table
       if (data.user) {
-        const { error: profileError } = await supabase.from("profiles").insert([
-          {
-            id: data.user.id,
-            name,
-            email,
-            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
-            created_at: new Date().toISOString(),
-          },
-        ]);
+        console.log("Creating profile for user:", data.user.id);
+
+        const profileData = {
+          id: data.user.id,
+          name,
+          email,
+          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
+          created_at: new Date().toISOString(),
+        };
+
+        console.log("Profile data to insert:", profileData);
+
+        const { error: profileError } = await supabase
+          .from("profiles")
+          .upsert([profileData]);
 
         if (profileError) {
           console.error("Error creating profile:", profileError);
           return { error: new Error("Failed to create profile"), data: null };
         }
+
+        console.log("Profile created successfully");
       }
 
       return { data, error: null };
@@ -112,15 +124,51 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
+      console.log("AuthContext: Attempting to sign in with:", email);
+
       const result = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
       if (result.error) {
         console.error("Sign in error:", result.error);
       } else {
         console.log("Sign in successful:", result.data);
+
+        // Check if user has a profile, create one if not
+        if (result.data.user) {
+          const { data: profileData, error: profileError } = await supabase
+            .from("profiles")
+            .select("*")
+            .eq("id", result.data.user.id)
+            .single();
+
+          if (profileError && profileError.code === "PGRST116") {
+            // No profile found, create one
+            console.log("No profile found for user, creating default profile");
+
+            const defaultProfile = {
+              id: result.data.user.id,
+              name: email.split("@")[0],
+              email: email,
+              avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
+              created_at: new Date().toISOString(),
+            };
+
+            const { error: insertError } = await supabase
+              .from("profiles")
+              .upsert([defaultProfile]);
+
+            if (insertError) {
+              console.error("Error creating default profile:", insertError);
+            } else {
+              console.log("Default profile created successfully");
+            }
+          }
+        }
       }
+
       return result;
     } catch (err) {
       console.error("Unexpected error during sign in:", err);
