@@ -14,7 +14,7 @@ const WelcomeScreen: React.FC<WelcomeScreenProps> = ({
   onLogin = () => {},
 }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 p-6 rounded-[40px]">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] p-6 rounded-[40px]">
       <div className="flex-1 flex flex-col items-center justify-center text-center">
         <div className="mb-8"></div>
         <h1 className="text-5xl mb-4 font-bold flex text-[#00b4d8]">FRYCOM</h1>

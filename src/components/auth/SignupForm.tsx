@@ -55,7 +55,7 @@ const SignupForm: React.FC<SignupFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 p-6 rounded-[40px]">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] p-6 rounded-[40px]">
       <button
         onClick={onBack}
         className="w-12 h-12 rounded-md bg-gray-200 dark:bg-gray-800 mb-12 self-start flex items-center justify-center"

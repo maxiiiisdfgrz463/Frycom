@@ -62,44 +62,75 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const signUp = async (email: string, password: string, name: string) => {
     setIsLoading(true);
 
-    // Sign up the user
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          name,
+    try {
+      // Sign up the user
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name,
+          },
         },
-      },
-    });
+      });
 
-    // If successful and we have a user, create a profile in the profiles table
-    if (data.user && !error) {
-      const { error: profileError } = await supabase.from("profiles").insert([
-        {
-          id: data.user.id,
-          name,
-          email,
-          avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-
-      if (profileError) {
-        console.error("Error creating profile:", profileError);
-        return { error: new Error("Failed to create profile"), data: null };
+      if (error) {
+        console.error("Error signing up:", error);
+        return { error, data: null };
       }
-    }
 
-    setIsLoading(false);
-    return { data, error };
+      // If successful and we have a user, create a profile in the profiles table
+      if (data.user) {
+        const { error: profileError } = await supabase.from("profiles").insert([
+          {
+            id: data.user.id,
+            name,
+            email,
+            avatar_url: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`,
+            created_at: new Date().toISOString(),
+          },
+        ]);
+
+        if (profileError) {
+          console.error("Error creating profile:", profileError);
+          return { error: new Error("Failed to create profile"), data: null };
+        }
+      }
+
+      return { data, error: null };
+    } catch (err) {
+      console.error("Unexpected error during signup:", err);
+      return {
+        error: err instanceof Error ? err : new Error(String(err)),
+        data: null,
+      };
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const signIn = async (email: string, password: string) => {
     setIsLoading(true);
-    const result = await supabase.auth.signInWithPassword({ email, password });
-    setIsLoading(false);
-    return result;
+    try {
+      const result = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (result.error) {
+        console.error("Sign in error:", result.error);
+      } else {
+        console.log("Sign in successful:", result.data);
+      }
+      return result;
+    } catch (err) {
+      console.error("Unexpected error during sign in:", err);
+      return {
+        data: null,
+        error: err instanceof Error ? err : new Error(String(err)),
+      };
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const signOut = async () => {

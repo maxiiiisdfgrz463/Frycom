@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "./ui/button";
 import { Bell, Home, Search, User, PlusCircle, Loader2 } from "lucide-react";
+import { ThemeToggle } from "./ui/theme-toggle";
 import { supabase } from "@/lib/supabase";
 import { formatDistanceToNow } from "date-fns";
 import FeedContainer from "./feed/FeedContainer";
@@ -139,14 +140,15 @@ const HomePage: React.FC = () => {
   }));
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-[#0d1015]">
       {/* Header/Navigation */}
-      <header className="sticky top-0 z-10 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+      <header className="sticky top-0 z-10 bg-white dark:bg-[#161b22] border-b border-gray-200 dark:border-gray-700 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
-            <div className="flex items-center">
+            <div className="flex items-center space-x-2">
               <h1 className="text-xl font-bold text-primary">SocialFeed</h1>
+              <ThemeToggle />
             </div>
 
             {/* Search */}
@@ -197,7 +199,7 @@ const HomePage: React.FC = () => {
           <div className="flex flex-col md:flex-row gap-6">
             {/* Sidebar (Desktop only) */}
             <div className="hidden md:block w-64 flex-shrink-0">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sticky top-20">
+              <div className="bg-white dark:bg-[#161b22] rounded-lg shadow p-4 sticky top-20">
                 <nav className="space-y-1">
                   <Link
                     to="/"
@@ -241,7 +243,7 @@ const HomePage: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                 {/* Feed Container */}
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+                <div className="bg-white dark:bg-[#161b22] rounded-lg shadow">
                   <div className="p-4">
                     <h2 className="text-xl font-semibold mb-4">Your Feed</h2>
 
@@ -278,7 +280,7 @@ const HomePage: React.FC = () => {
 
             {/* Right Sidebar (Desktop only) */}
             <div className="hidden lg:block w-80 flex-shrink-0">
-              <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sticky top-20">
+              <div className="bg-white dark:bg-[#161b22] rounded-lg shadow p-4 sticky top-20">
                 <h2 className="text-lg font-semibold mb-4">
                   Suggested for you
                 </h2>
@@ -341,7 +343,7 @@ const HomePage: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-8">
+      <footer className="bg-white dark:bg-[#161b22] border-t border-gray-200 dark:border-gray-700 mt-8">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">

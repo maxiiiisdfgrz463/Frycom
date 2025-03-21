@@ -23,10 +23,12 @@ const AppRoutes: React.FC = () => {
 
   // Auth handlers
   const handleLogin = async (email: string, password: string) => {
-    const { error } = await signIn(email, password);
-    if (!error) {
+    const result = await signIn(email, password);
+    if (!result.error) {
       navigate("/feed");
+      return { success: true };
     }
+    return result;
   };
 
   const handleSignup = (name: string, email: string, password: string) => {

@@ -25,12 +25,24 @@ const LoginForm: React.FC<LoginFormProps> = ({
     setIsSubmitting(true);
 
     try {
-      await onLogin(email, password);
+      const result = await onLogin(email, password);
+      if (result?.error) {
+        toast({
+          variant: "destructive",
+          title: "Login failed",
+          description:
+            result.error.message ||
+            "Invalid email or password. Please try again.",
+        });
+      }
     } catch (error) {
       toast({
         variant: "destructive",
         title: "Login failed",
-        description: "Invalid email or password. Please try again.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Invalid email or password. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -38,7 +50,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 p-6 rounded-[40px]">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] p-6 rounded-[40px]">
       <button
         onClick={onBack}
         className="w-12 h-12 rounded-md bg-gray-200 dark:bg-gray-800 mb-12 self-start flex static justify-center items-center"

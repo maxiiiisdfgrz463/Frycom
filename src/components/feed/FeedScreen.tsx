@@ -70,7 +70,7 @@ const FeedScreen: React.FC<FeedScreenProps> = ({
   ],
 }) => {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-950 rounded-[40px]">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-[#0d1015] rounded-[40px]">
       {/* Header */}
       <div className="sticky top-0 z-10 bg-white dark:bg-gray-900 p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold text-[#00b4d8]">FRYCOM</h1>

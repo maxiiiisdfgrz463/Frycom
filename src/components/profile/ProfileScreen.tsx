@@ -150,7 +150,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
   if (loading) {
     return (
-      <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 rounded-[40px] items-center justify-center">
+      <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] rounded-[40px] items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
         <p className="mt-4 text-gray-500">Loading profile...</p>
       </div>
@@ -159,7 +159,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
   if (isEditing) {
     return (
-      <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 rounded-[40px]">
+      <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] rounded-[40px]">
         <div className="flex justify-between items-center p-4">
           <button
             className="w-12 h-12 rounded-md bg-gray-200 dark:bg-gray-800 flex items-center justify-center"
@@ -181,7 +181,7 @@ const ProfileScreen: React.FC<ProfileScreenProps> = ({
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-gray-950 rounded-[40px]">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-[#0d1015] rounded-[40px]">
       {/* Header */}
       <div className="flex justify-between items-center p-4">
         <button
